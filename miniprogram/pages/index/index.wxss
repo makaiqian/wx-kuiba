@@ -1,0 +1,15 @@
+/**index.wxss**/
+
+.list-item {
+  margin-bottom: 16px;
+  font-size: 12px;
+  text-align: center;
+  color: #908f8f;
+}
+.list-img {
+  width: 96vw;
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+  border-top-left-radius: 5vw;
+  border-bottom-right-radius: 5vw;
+}

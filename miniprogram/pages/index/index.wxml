@@ -1,0 +1,7 @@
+<!--index.wxml-->
+<view class="container">
+  <view wx:for="{{list}}" class="list-item"> 
+    <image class="list-img" src="{{item.img}}?x-oss-process=image/resize,m_lfit,w_750/quality,q_90" mode="aspectFill"></image>
+    <view>{{item.desc}}</view>
+  </view>
+</view>
