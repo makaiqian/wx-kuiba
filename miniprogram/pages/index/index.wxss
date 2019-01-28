@@ -9,6 +9,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 10px 0;
 }
 .user-avatar {
   width: 20px;
@@ -52,20 +53,28 @@
 }
 .list-star-container {
   display: flex;
-  justify-content: flex-end;
-  width: 96vw;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 88vw;
+  margin: 0 auto;
+}
+.list-star-content {
+  height: 6vw;
+  line-height: 6vw;
 }
 .list-star {
   width: 16vw;
   height: 6vw;
   line-height: 6vw;
-  border: 1px solid #fff;
+  border: 2px solid #ff2769;
+  color: #ff2769;
   border-radius: 2vw;
   margin-top: 2vw;
   margin-bottom: 2vw;
+  font-weight: bold;
 }
 .list-star.stared {
-  border: 1px solid #ff2769;
+  border: 2px solid #ff2769;
   color: #fff;
   background-color: #ff2769;
 }
