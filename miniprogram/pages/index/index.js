@@ -1,6 +1,8 @@
 //index.js
 import Cloud from '../../common/cloud'
 
+import Common from '../../common/index'
+
 import PageData from '../../data/data.js'
 
 const app = getApp()
@@ -16,13 +18,7 @@ Page({
     // 是否可以用获取到用户信息的API
     canIUseUserInfo: wx.canIUse('button.open-type.getUserInfo'),
     // 是否为管理员用户
-    isAdmin: false,
-  },
-  /**
-   * 监听获取用户信息
-   */
-  bindGetUserInfo(e) {
-    console.log(e.detail.userInfo)
+    isAdmin: false
   },
   /**
    * 页面加载完
@@ -47,15 +43,7 @@ Page({
     wx.getSetting({
       success (res) {
         if (res.authSetting['scope.userInfo']) {
-          // 已经授权
-          // 可以直接调用 getUserInfo 获取头像昵称
-          // wx.getUserInfo({
-          //   success: function (res) {
-          //     console.log(res.userInfo)
-          //   }
-          // })
         } else {
-          // 未授权
         }
       },
       fail (err) {
@@ -96,7 +84,6 @@ Page({
   getList() {
     Cloud.getHomeList({ db: this.db })
       .then(res => {
-        console.log(res.data)
         if (res.data) {
           this.setData({
             list: res.data
@@ -114,25 +101,39 @@ Page({
    */
   clickStar (e) {
     const id = e.target.dataset.id
-    this.db.collection('list_admin').doc(id).get()
+    this.db.collection('list_page').doc(id).get()
       .then(res => {
         if (res.data) {
-          this.db.collection('list_admin').doc(id).set({
-            starNum: res.data
+          let data = res.data
+          this.db.collection('list_page').doc(id).update({
+            data: {
+              starNum: this.db.command.inc(1)
+            }
           })
             .then(res => {
-              this.getList()
+              if (res.stats && res.stats.updated === 1) {
+                this.starError()
+                this.getList()
+              } else {
+                throw new Error()
+              }
             })
             .catch(err => {
-              console.log(err)
+              this.starError()
             })
         } else {
           throw new Error()
         }
       })
       .catch(err => {
-        console.log(err)
+        this.starError()
       })
+  },
+  /**
+   * 点赞失败
+   */
+  starError () {
+    Common.Toast({ content: '点赞失败啦~请稍后再试哟~' })
   },
   /**
    * 点击进入管理员上传界面

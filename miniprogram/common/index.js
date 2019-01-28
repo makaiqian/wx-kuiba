@@ -11,5 +11,18 @@ export default {
                 }
             }
         })
+    },
+    Toast ({ content, icon, duration, success, fail }) {
+        return wx.showToast({
+            title: content || '成功',
+            icon: icon || 'none',
+            duration: duration || 2000,
+            success(res) {
+                success && success()
+            },
+            fail(res) {
+                fail && fail()
+            }
+        })
     }
 }
