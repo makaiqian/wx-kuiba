@@ -11,6 +11,7 @@
 	"appid": "wxdb46706e925c1b65",
 	"projectname": "wx-kuiba",
 	"libVersion": "2.2.5",
+	"qcloudRoot": "miniprogram/",
 	"condition": {
 		"search": {
 			"current": -1,

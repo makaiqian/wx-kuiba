@@ -3,58 +3,163 @@ const app = getApp()
 
 Page({
   data: {
-    list: [{
-      img: 'https://kuiba.oss-cn-beijing.aliyuncs.com/IMG_2934.jpg',
-      starNum: 0,
-      desc: '喵！我是魁拔，早安哦~又是元气满满的一天！'
-    }, {
-        img: 'https://kuiba.oss-cn-beijing.aliyuncs.com/IMG_2497.JPG',
-        starNum: 0,
-        desc: '生日快乐哟~小萌子~'
-      }, {
-        img: 'https://kuiba.oss-cn-beijing.aliyuncs.com/IMG_2335.JPG',
-        starNum: 0,
-        desc: '这些都是本喵滴！'
-      }, {
-        img: 'https://kuiba.oss-cn-beijing.aliyuncs.com/IMG_2193.JPG',
-        starNum: 0,
-        desc: '我抱住了鞋鞋~你就不用去上班啦~陪我嘛~'
-      }, {
-        img: 'https://kuiba.oss-cn-beijing.aliyuncs.com/LRG_DSC05649.JPG',
-        starNum: 0,
-        desc: '我们拉钩！你要把我照顾得好好的！'
-      }, {
-        img: 'https://kuiba.oss-cn-beijing.aliyuncs.com/IMG_1963.JPG',
-        starNum: 0,
-        desc: '啥时候下班回来陪我喵？'
-      }, {
-        img: 'https://kuiba.oss-cn-beijing.aliyuncs.com/IMG_1960.JPG',
-        starNum: 0,
-        desc: '啊呜~啊呜~好吃！再来一打！'
-      }, {
-        img: 'https://kuiba.oss-cn-beijing.aliyuncs.com/IMG_1856.JPG',
-        starNum: 0,
-        desc: '乖乖吃饭的魁拔~'
-      }, {
-        img: 'https://kuiba.oss-cn-beijing.aliyuncs.com/IMG_4148.JPG',
-        starNum: 0,
-        desc: '呜呜~家里来了其它喵喵~'
-      }, {
-        img: 'https://kuiba.oss-cn-beijing.aliyuncs.com/IMG_2453.JPG',
-        starNum: 0,
-        desc: '刁民们~快给本大爷请安！'
-      }, {
-        img: 'https://kuiba.oss-cn-beijing.aliyuncs.com/IMG_1628.JPG',
-        starNum: 0,
-        desc: '每日必备——萌喵撒娇~~'
-      }, {
-        img: 'https://kuiba.oss-cn-beijing.aliyuncs.com/IMG_1341%20%282%29.jpg',
-        starNum: 0,
-        desc: '每天早上醒来'
-      }, {
-        img: 'https://kuiba.oss-cn-beijing.aliyuncs.com/IMG_1188.PNG',
-        starNum: 0,
-        desc: '剃毛以后，总在家里的镜子看到一只丑八怪！'
-      }]
+    /**
+     * 首页展示数据列表
+     */
+    list: [],
+    /**
+     * 是否可以用获取到用户信息的API
+     */
+    canIUseUserInfo: wx.canIUse('button.open-type.getUserInfo'),
+    /**
+     * 是否为管理员用户
+     */
+    isAdmin: false,
+  },
+  /**
+   * 每张图片加载完以后触发
+   */
+  onImgLazyLoad() {},
+  /**
+   * 监听获取用户信息
+   */
+  bindGetUserInfo(e) {
+    console.log(e.detail.userInfo)
+  },
+  /**
+   * 页面加载完
+   */
+  onLoad() {
+    this.initCloud()
+    this.initPermission()
+    this.isMatchAdmin()
+    this.getList()
+  },
+  /**
+   * 初始化cloud
+   */
+  initCloud() {
+    wx.cloud.init({
+      traceUser: true
+    })
+    const db = wx.cloud.database({
+      env: 'kuiba-5192b6'
+    })
+    this.db = db
+  },
+  /**
+   * 初始化授权
+   */
+  initPermission () {
+    wx.getSetting({
+      success (res) {
+        if (res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+          // wx.getUserInfo({
+          //   success: function (res) {
+          //     console.log(res.userInfo)
+          //   }
+          // })
+        }
+      },
+      fail (err) {
+        this.goError()
+      }
+    })
+  },
+  /**
+   * 判断用户是否为管理员
+   */
+  isMatchAdmin () {
+     wx.cloud.callFunction({
+      name: 'getWXContext'
+    })
+      .then((resInfo) => {
+        this.getAdminList()
+          .then((res) => {
+            if (res.data) {
+              res.data.forEach((item) => {
+                this.setData({
+                  isAdmin: (item.openId === resInfo.result.OPENID) ? true : false
+                })
+              })
+            } else {
+              throw new Error()
+            }
+          })
+          .catch(err => {
+            this.goError()
+          })
+      })
+      .catch(err => {
+        this.goError()
+      })
+  },
+  /**
+   * 获取cloud数据列表
+   */
+  getList() {
+    const db = this.db
+    db.collection('list_page').get()
+      .then(res => {
+        if (res.data) {
+          this.setData({
+            list: res.data
+          })
+        } else {
+          throw new Error()
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  },
+  /**
+   * 获取管理员列表信息
+   */
+  getAdminList() {
+    const db = this.db
+    return db.collection('list_admin').get()
+  },
+  /**
+   * 点击点赞按钮
+   */
+  clickStar (e) {
+    const id = e.target.dataset.id
+    this.db.collection('list_admin').doc(id).get()
+      .then(res => {
+        if (res.data) {
+          this.db.collection('list_admin').doc(id).set({
+            starNum: res.data
+          })
+            .then(res => {
+              this.getList()
+            })
+            .catch(err => {
+              console.log(err)
+            })
+        } else {
+          throw new Error()
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  },
+  /**
+   * 点击进入管理员上传界面
+   */
+  clickAdd () {
+    wx.navigateTo({
+      url: "add"
+    })
+  },
+  /**
+   * 跳转到错误页
+   */
+  goError () {
+    wx.navigateTo({
+      url: 'error'
+    })
   }
 })

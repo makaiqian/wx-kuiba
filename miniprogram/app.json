@@ -1,7 +1,9 @@
 {
   "cloud": true,
   "pages": [
-    "pages/index/index"
+    "pages/index/index",
+    "pages/add/add",
+    "pages/error/error"
   ],
   "window": {
     "navigationBarTitleText": "魁拔喵喵喵"

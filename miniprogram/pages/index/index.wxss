@@ -1,5 +1,21 @@
 /**index.wxss**/
-
+.header {
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.user-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 6px;
+}
+.user-welcome {
+  font-size: 12px;
+  color: #908f8f;
+}
 .list-item {
   margin-bottom: 16px;
   font-size: 12px;
@@ -12,4 +28,29 @@
   margin-bottom: 2vw;
   border-top-left-radius: 5vw;
   border-bottom-right-radius: 5vw;
+  box-shadow: 5px 5px 20px rgba(0,0,0,0.1);
+}
+.list-desc {
+  word-break: keep-all;
+  word-wrap: break-word;
+  padding: 0 20px;
+}
+.list-star-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 96vw;
+}
+.list-star {
+  width: 16vw;
+  height: 6vw;
+  line-height: 6vw;
+  border: 1px solid #ccc;
+  border-radius: 2vw;
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+}
+.list-star.stared {
+  border: 1px solid #ff2769;
+  color: #fff;
+  background-color: #ff2769;
 }
