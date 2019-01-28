@@ -10,7 +10,7 @@ App({
       })
     } else {
       wx.cloud.init({
-        traceUser: true,
+        traceUser: true, // 将用户访问记录到用户管理中，在控制台中可见
       })
     }
     this.globalData = {}
