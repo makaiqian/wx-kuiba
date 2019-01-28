@@ -8,5 +8,13 @@ export default {
         return wx.cloud.database({
             env: 'kuiba-5192b6'
         })
+    },
+    getUserInfo () {
+        return wx.cloud.callFunction({
+            name: 'getWXContext'
+        })
+    },
+    getAdminList ({ db }) {
+        return db.collection('list_admin').get()
     }
 }

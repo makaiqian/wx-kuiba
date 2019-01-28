@@ -48,7 +48,6 @@ Page({
    * 初始化授权
    */
   initPermission () {
-    
     wx.getSetting({
       success (res) {
         console.log(res)
@@ -73,24 +72,23 @@ Page({
    * 判断用户是否为管理员
    */
   isMatchAdmin () {
-    wx.cloud.callFunction({
-      name: 'getWXContext'
-    })
+    Cloud.getUserInfo()
       .then((resInfo) => {
-        this.getAdminList()
+        Cloud.getAdminList({ db: this.db })
           .then((res) => {
             if (res.data) {
+              let isAdmin = false
               res.data.forEach((item) => {
-                this.setData({
-                  isAdmin: (item.openId === resInfo.result.OPENID) ? true : false
-                })
+                if (item.openId === resInfo.result.OPENID) {
+                  isAdmin = true
+                }
+              })
+              this.setData({
+                isAdmin: isAdmin
               })
             } else {
               throw new Error()
             }
-          })
-          .catch(err => {
-            this.goError()
           })
       })
       .catch(err => {
@@ -115,13 +113,6 @@ Page({
       .catch(err => {
         console.log(err)
       })
-  },
-  /**
-   * 获取管理员列表信息
-   */
-  getAdminList() {
-    const db = this.db
-    return db.collection('list_admin').get()
   },
   /**
    * 点击点赞按钮
