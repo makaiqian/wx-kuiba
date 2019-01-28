@@ -1,0 +1,6 @@
+<!--error.wxml-->
+<view class="container">
+    <view class="list-text" wx:for="{{versionText}}"> 
+        <text>{{versionText[index]}}</text>
+    </view>
+</view>
