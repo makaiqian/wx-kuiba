@@ -16,5 +16,8 @@ export default {
     },
     getAdminList ({ db }) {
         return db.collection('list_admin').get()
+    },
+    getHomeList ({ db }) {
+        return db.collection('list_page').get()
     }
 }

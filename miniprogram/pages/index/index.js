@@ -99,8 +99,7 @@ Page({
    * 获取cloud数据列表
    */
   getList() {
-    const db = this.db
-    db.collection('list_page').get()
+    Clound.getHomeList({ db: this.db })
       .then(res => {
         if (res.data) {
           this.setData({
@@ -111,7 +110,7 @@ Page({
         }
       })
       .catch(err => {
-        console.log(err)
+        this.goError()
       })
   },
   /**
