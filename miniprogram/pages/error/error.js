@@ -4,14 +4,18 @@ import PageData from '../../data/data.js'
 
 Page({
   data: {
-    versionText: []
+    textList: []
   },
   onLoad (option) {
     const type = option.type
+    let textList = PageData.error.commonText
     if (type === 'version') {
-      this.setData({
-        versionText: PageData.common.versionText
-      })
+      textList = PageData.error.versionText
+    } else if (type === 'permission') {
+      textList = PageData.error.permissionText
     }
+    this.setData({
+      textList: textList
+    })
   }
 })

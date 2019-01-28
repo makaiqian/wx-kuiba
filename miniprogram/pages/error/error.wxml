@@ -1,6 +1,6 @@
 <!--error.wxml-->
 <view class="container">
-    <view class="list-text" wx:for="{{versionText}}"> 
-        <text>{{versionText[index]}}</text>
+    <view class="list-text" wx:for="{{textList}}"> 
+        <text>{{textList[index]}}</text>
     </view>
 </view>

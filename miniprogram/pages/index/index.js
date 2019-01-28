@@ -1,4 +1,6 @@
 //index.js
+import Cloud from '../../common/cloud'
+
 const app = getApp()
 
 Page({
@@ -39,27 +41,27 @@ Page({
    * 初始化cloud
    */
   initCloud() {
-    wx.cloud.init({
-      traceUser: true
-    })
-    const db = wx.cloud.database({
-      env: 'kuiba-5192b6'
-    })
-    this.db = db
+    Cloud.init()
+    this.db = Cloud.createDB()
   },
   /**
    * 初始化授权
    */
   initPermission () {
+    
     wx.getSetting({
       success (res) {
+        console.log(res)
         if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+          // 已经授权
+          // 可以直接调用 getUserInfo 获取头像昵称
           // wx.getUserInfo({
           //   success: function (res) {
           //     console.log(res.userInfo)
           //   }
           // })
+        } else {
+          // 未授权
         }
       },
       fail (err) {
@@ -71,7 +73,7 @@ Page({
    * 判断用户是否为管理员
    */
   isMatchAdmin () {
-     wx.cloud.callFunction({
+    wx.cloud.callFunction({
       name: 'getWXContext'
     })
       .then((resInfo) => {
@@ -157,9 +159,17 @@ Page({
   /**
    * 跳转到错误页
    */
+  goPermissionError () {
+    wx.navigateTo({
+      url: '../error/error?type=permission'
+    })
+  },
+  /**
+   * 跳转到错误页
+   */
   goError () {
     wx.navigateTo({
-      url: 'error'
+      url: '../error/error'
     })
   }
 })
