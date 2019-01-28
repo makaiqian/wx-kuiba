@@ -99,7 +99,7 @@ Page({
    * 获取cloud数据列表
    */
   getList() {
-    Clound.getHomeList({ db: this.db })
+    Cloud.getHomeList({ db: this.db })
       .then(res => {
         if (res.data) {
           this.setData({
