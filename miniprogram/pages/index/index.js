@@ -20,7 +20,9 @@ Page({
     // 是否为管理员用户
     isAdmin: false,
     // 当前用户信息
-    userInfo: {}
+    userInfo: {},
+    // 用户标识
+    OPENID: ''
   },
   /**
    * 页面加载完
@@ -28,8 +30,9 @@ Page({
   onLoad() {
     this.initCloud()
     this.initPermission()
-    this.isMatchAdmin()
-    this.getList()
+    this.isMatchAdmin(() => {
+      this.getList()
+    })
   },
   /**
    * 初始化cloud
@@ -56,15 +59,17 @@ Page({
   /**
    * 判断用户是否为管理员
    */
-  isMatchAdmin () {
+  isMatchAdmin (cb) {
     Cloud.getUserInfo()
       .then((resInfo) => {
+        const OPENID = this.OPENID = resInfo.result.OPENID
+        cb && cb()
         Cloud.getAdminList({ db: this.db })
           .then((res) => {
             if (res.data) {
               let isAdmin = false
               res.data.forEach((item) => {
-                if (item.openId === resInfo.result.OPENID) {
+                if (item.openId === OPENID) {
                   isAdmin = true
                 }
               })
@@ -87,6 +92,15 @@ Page({
     Cloud.getHomeList({ db: this.db })
       .then(res => {
         if (res.data) {
+          res.data.forEach((item) => {
+            let isStar = false
+            item.starList.forEach((starItem) => {
+              if (starItem.OPENID === this.OPENID) {
+                isStar = true
+              }
+            })
+            item.isStar = isStar
+          })
           this.setData({
             list: res.data
           })
@@ -102,6 +116,7 @@ Page({
    * 点击点赞按钮
    */
   clickStar (e) {
+    const userInfo = JSON.parse(e.detail.rawData)
     const id = e.target.dataset.id
     this.db.collection('list_page').doc(id).get()
       .then(res => {
@@ -109,12 +124,15 @@ Page({
           let data = res.data
           this.db.collection('list_page').doc(id).update({
             data: {
-              starNum: this.db.command.inc(1)
+              starList: this.db.command.push({
+                ...userInfo,
+                date: new Date().getTime(),
+                OPENID: this.OPENID
+              })
             }
           })
             .then(res => {
               if (res.stats && res.stats.updated === 1) {
-                this.starError()
                 this.getList()
               } else {
                 throw new Error()

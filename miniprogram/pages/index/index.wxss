@@ -51,6 +51,13 @@
   word-wrap: break-word;
   padding: 0 20px;
 }
+.button-default {
+  border: none;
+  outline: none;
+  background: transparent;
+  margin: 0;
+  padding: 0;
+}
 .list-star-container {
   display: flex;
   justify-content: space-between;
@@ -72,6 +79,8 @@
   margin-top: 2vw;
   margin-bottom: 2vw;
   font-weight: bold;
+  font-size: 12px;
+  box-sizing: content-box;
 }
 .list-star.stared {
   border: 2px solid #ff2769;
