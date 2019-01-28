@@ -71,7 +71,7 @@ Page({
       db.collection('list_page').add({
         data: {
           img: img,
-          starNum: 0,
+          starList: [],
           date: new Date().getTime(),
           desc: desc
         }

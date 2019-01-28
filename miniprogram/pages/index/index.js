@@ -18,7 +18,9 @@ Page({
     // 是否可以用获取到用户信息的API
     canIUseUserInfo: wx.canIUse('button.open-type.getUserInfo'),
     // 是否为管理员用户
-    isAdmin: false
+    isAdmin: false,
+    // 当前用户信息
+    userInfo: {}
   },
   /**
    * 页面加载完

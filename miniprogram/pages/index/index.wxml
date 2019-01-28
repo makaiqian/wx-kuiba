@@ -14,7 +14,7 @@
       <image class="list-img" lazy-load src="{{item.img}}" mode="widthFix"></image>
       <view class="list-desc">{{item.desc}}</view>
       <view class="list-star-container">
-        <view class="list-star-content">已有{{item.starNum}}个赞</view>
+        <view class="list-star-content">已有{{item.starList.length}}个赞</view>
         <view class="list-star stared" wx:if="{{item.isStar}}">已点赞</view>
         <view class="list-star" wx:else bindtap="clickStar" data-id="{{item._id}}" data-index="{{index}}">点个赞</view>
       </view>
