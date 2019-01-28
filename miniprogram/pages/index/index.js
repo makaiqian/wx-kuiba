@@ -19,10 +19,6 @@ Page({
     isAdmin: false,
   },
   /**
-   * 每张图片加载完以后触发
-   */
-  onImgLazyLoad() {},
-  /**
    * 监听获取用户信息
    */
   bindGetUserInfo(e) {

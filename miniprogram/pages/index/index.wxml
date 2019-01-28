@@ -9,12 +9,9 @@
     </view>
     <button class="admin-entry" type="primary" size="mini" bindtap="clickAdd" wx:if="{{isAdmin}}">{{ adminEntryText }}</button>
   </view>
-  <!-- <button type="primary" size="default" wx:if="{{canIUseUserInfo}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button> -->
-  <!-- <view wx:else>请升级微信版本</view> -->
-
   <scroll-view class="container" scroll-y>
     <view wx:for="{{list}}" class="list-item"> 
-      <image class="list-img" lazy-load src="{{item.img}}" mode="aspectFill" bindload='onImgLazyLoad'></image>
+      <image class="list-img" lazy-load src="{{item.img}}" mode="widthFix"></image>
       <view class="list-desc">{{item.desc}}</view>
       <view class="list-star-container">
         <view class="list-star stared" wx:if="{{item.isStar}}">已点赞</view>
