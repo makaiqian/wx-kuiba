@@ -1,6 +1,6 @@
 <!--pages/index/add.wxml-->
-<button type="primary" size="mini" bindtap="clickUpload">上传</button>
-<image src="{{previewImage}}"></image>
+<button type="primary" size="mini" bindtap="clickUpload">上传图片</button>
+<image src="{{previewImage}}" mode="widthFix">></image>
 <view class="section">
   <input bindinput="bindKeyInput" value="{{desc}}" placeholder="请输入描述"/>
 </view>

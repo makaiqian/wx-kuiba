@@ -1,13 +1,13 @@
 // pages/add/add.js
+
+import Common from '../../common/index'
+
+
 Page({
   data: {
-    /**
-     * 预览图片
-     */
+    // 预览图片
     previewImage: '',
-    /**
-     * 描述内容
-     */
+    // 描述内容
     desc: ''
   },
   /**
@@ -23,20 +23,20 @@ Page({
    */
   clickUpload () {
     wx.chooseImage({
+      count: 1,
       sizeType: ['original', 'compressed'],
-      sourceType: ['album']
-    })
-    .then((res) => {
-      console.log(res);
-      if (res.tempFilePaths && res.tempFilePaths[0]) {
-        let resImg = res.tempFilePaths[0]
-        this.uploadImg(resImg)
-      } else {
-        throw new Error()
+      sourceType: ['album'],
+      success: (res) => {
+        if (res.tempFilePaths && res.tempFilePaths[0]) {
+          let resImg = res.tempFilePaths[0]
+          this.uploadImg(resImg)
+        } else {
+          Common.Toast({ content: '服务器异常~请稍后再试~' })
+        }
+      },
+      fail: (res) => {
+        Common.Toast({ content: '失败啦~请稍后再试~' })
       }
-    })
-    .catch(err => {
-      this.goError()
     })
   },
   /**
@@ -55,7 +55,7 @@ Page({
         throw new Error()
       }
     }).catch(err => {
-      this.goError()
+      Common.Toast({ content: '上传失败啦~请稍后再试~' })
     })
   },
   /**
@@ -77,21 +77,24 @@ Page({
         }
       })
       .then(res => {
-        console.log(res)
+        Common.Toast({ content: '发布成功！' })
+        setTimeout(() => {
+          this.goHome()
+        }, 2000)
       })
       .catch(err => {
-        this.goError()
+        Common.Toast({ content: '啊哦~出错啦~' })
       })
     } else {
-      this.tipsToast()
+      Common.Toast({ content: '啊哦~图片和描述都必须要有哦~' })
     }
   },
   /**
-   * 到错误页
+   * 回到首页
    */
-  goError () {},
-  /**
-   * 提示toast
-   */
-  tipsToast () {}
+  goHome() {
+    wx.navigateTo({
+      url: '../index/index'
+    })
+  }
 })

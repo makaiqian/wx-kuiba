@@ -142,7 +142,7 @@ Page({
    */
   clickAdd () {
     wx.navigateTo({
-      url: "add"
+      url: "../add/add"
     })
   },
   /**
