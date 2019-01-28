@@ -9,14 +9,23 @@ export default {
             env: 'kuiba-5192b6'
         })
     },
+    /**
+     * 获取用户信息
+     */
     getUserInfo () {
         return wx.cloud.callFunction({
             name: 'getWXContext'
         })
     },
+    /**
+     * 获取管理员列表
+     */
     getAdminList ({ db }) {
         return db.collection('list_admin').get()
     },
+    /**
+     * 获取主页列表
+     */
     getHomeList ({ db }) {
         return db.collection('list_page').get()
     }

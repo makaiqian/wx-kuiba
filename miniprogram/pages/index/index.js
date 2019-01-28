@@ -1,21 +1,21 @@
 //index.js
 import Cloud from '../../common/cloud'
 
+import PageData from '../../data/data.js'
+
 const app = getApp()
 
 Page({
   data: {
-    /**
-     * 首页展示数据列表
-     */
+    // 欢迎文案
+    welcomeText: PageData.index.welcomeText,
+    // 管理员入口按钮文案
+    adminEntryText: PageData.index.adminEntryText,
+    // 首页展示数据列表
     list: [],
-    /**
-     * 是否可以用获取到用户信息的API
-     */
+    // 是否可以用获取到用户信息的API
     canIUseUserInfo: wx.canIUse('button.open-type.getUserInfo'),
-    /**
-     * 是否为管理员用户
-     */
+    // 是否为管理员用户
     isAdmin: false,
   },
   /**

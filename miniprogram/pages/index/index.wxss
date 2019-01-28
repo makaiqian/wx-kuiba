@@ -1,4 +1,9 @@
 /**index.wxss**/
+.container {
+  background-image: url('http://kuiba.oss-cn-beijing.aliyuncs.com/bg%20%281%29.jpg');
+  background-size: 100vw 100vh;
+  background-attachment: fixed;
+}
 .header {
   height: 30px;
   display: flex;
@@ -14,13 +19,20 @@
 }
 .user-welcome {
   font-size: 12px;
-  color: #908f8f;
+  color: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; 
+  max-width: 220px;
+}
+.admin-entry {
+  margin: 0
 }
 .list-item {
   margin-bottom: 16px;
   font-size: 12px;
   text-align: center;
-  color: #908f8f;
+  color: #fff;
 }
 .list-img {
   width: 96vw;
@@ -28,7 +40,8 @@
   margin-bottom: 2vw;
   border-top-left-radius: 5vw;
   border-bottom-right-radius: 5vw;
-  box-shadow: 5px 5px 20px rgba(0,0,0,0.1);
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 5px 5px 20px rgba(255,255,255,0.1);
 }
 .list-desc {
   word-break: keep-all;
@@ -44,7 +57,7 @@
   width: 16vw;
   height: 6vw;
   line-height: 6vw;
-  border: 1px solid #ccc;
+  border: 1px solid #fff;
   border-radius: 2vw;
   margin-top: 2vw;
   margin-bottom: 2vw;

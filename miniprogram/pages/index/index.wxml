@@ -1,23 +1,26 @@
 <!--index.wxml-->
-<view class="header">
-  <view class="user-avatar">
-    <open-data type="userAvatarUrl"></open-data>
-  </view>
-  <view class="user-welcome">
-    <open-data type="userNickName"></open-data>，欢迎你来看魁拔！
-  </view>
-</view>
-<!-- <button type="primary" size="default" wx:if="{{canIUseUserInfo}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button> -->
-<!-- <view wx:else>请升级微信版本</view> -->
-<button type="primary" size="default" bindtap="clickAdd" wx:if="{{isAdmin}}">晒喵</button>
-<scroll-view class="container" scroll-y>
-  <view wx:for="{{list}}" class="list-item"> 
-    <image class="list-img" lazy-load src="{{item.img}}" mode="aspectFill" bindload='onImgLazyLoad'></image>
-    <view class="list-desc">{{item.desc}}</view>
-    <view class="list-star-container">
-      <view class="list-star stared" wx:if="{{item.isStar}}">已点赞</view>
-      <view class="list-star" wx:else bindtap="clickStar" data-id="{{item._id}}" data-index="{{index}}">点个赞</view>
+<view class="container">
+  <view class="header">
+    <view class="user-avatar">
+      <open-data type="userAvatarUrl"></open-data>
     </view>
+    <view class="user-welcome">
+      <open-data type="userNickName"></open-data>，{{ welcomeText }}
+    </view>
+    <button class="admin-entry" type="primary" size="mini" bindtap="clickAdd" wx:if="{{isAdmin}}">{{ adminEntryText }}</button>
   </view>
-</scroll-view>
+  <!-- <button type="primary" size="default" wx:if="{{canIUseUserInfo}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button> -->
+  <!-- <view wx:else>请升级微信版本</view> -->
+
+  <scroll-view class="container" scroll-y>
+    <view wx:for="{{list}}" class="list-item"> 
+      <image class="list-img" lazy-load src="{{item.img}}" mode="aspectFill" bindload='onImgLazyLoad'></image>
+      <view class="list-desc">{{item.desc}}</view>
+      <view class="list-star-container">
+        <view class="list-star stared" wx:if="{{item.isStar}}">已点赞</view>
+        <view class="list-star" wx:else bindtap="clickStar" data-id="{{item._id}}" data-index="{{index}}">点个赞</view>
+      </view>
+    </view>
+  </scroll-view>
+</view>
 

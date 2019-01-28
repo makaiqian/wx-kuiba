@@ -1,5 +1,5 @@
 .container {
-    background-image: url('http://kuiba.oss-cn-beijing.aliyuncs.com/Colorful-Abstract-Background-for-Samsung-Galaxy-S9-and-S9-in-Red-and-Blue-500x1028.jpg?Expires=1548676474&OSSAccessKeyId=TMP.AQG821Vo7rKc5WRSuXcAPMPlugcOTSxxRbBsxG8PrGvuQ5L390cpqHTdj-MUMC4CFQCHVcoelyJPUBllU2neCkj3mzLpzAIVAJXYhwDDJpRfe48me1vQyAZi4dWW&Signature=TQzFdiJTZH2%2F7tJMn%2FXbPOqUu2g%3D');
+    background-image: url('http://kuiba.oss-cn-beijing.aliyuncs.com/bg%20%281%29.jpg');
     width: 100vw;
     height: 100vh;
     padding-top: 36vh;
