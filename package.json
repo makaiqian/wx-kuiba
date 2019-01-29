@@ -379,6 +379,6 @@
       "resolved": "https://registry.npmjs.org/verror/-/verror-1.10.0.tgz",
       "version": "1.10.0"
     },
-    "wx-server-sdk": "0.0.24"
+    "wx-server-sdk": "^0.1.4"
   }
 }

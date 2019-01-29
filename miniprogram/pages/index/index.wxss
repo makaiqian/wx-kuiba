@@ -1,8 +1,11 @@
 /**index.wxss**/
-.container {
+.bg {
   background-image: url('http://kuiba.oss-cn-beijing.aliyuncs.com/bg%20%281%29.jpg');
+  width: 100vw;
+  height: 100vh;
   background-size: 100vw 100vh;
-  background-attachment: fixed;
+  position: fixed;
+  z-index: -1;
 }
 .header {
   height: 30px;

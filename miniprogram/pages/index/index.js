@@ -5,6 +5,8 @@ import Common from '../../common/index'
 
 import PageData from '../../data/data.js'
 
+import Star from 'star'
+
 const app = getApp()
 
 Page({
@@ -116,48 +118,32 @@ Page({
    * 点击点赞按钮
    */
   clickStar (e) {
-    const userInfo = JSON.parse(e.detail.rawData)
-    const id = e.target.dataset.id
-    this.db.collection('list_page').doc(id).get()
-      .then(res => {
-        if (res.data) {
-          let data = {
-            starList: this.db.command.push({
-              ...userInfo,
-              date: new Date().getTime(),
-              openId: this.OPENID
-            })
-          }
-
-          this.db.collection('list_page').doc(id).update({
-            data: data
-          })
-          console.log(data)
-            .then(res => {
-              console.log(res)
-              if (res.stats && res.stats.updated === 1) {
-                Common.Toast({ content: '点赞成功~' })
-                this.getList()
-              } else {
-                throw new Error()
-              }
-            })
-            .catch(err => {
-              this.starError()
-            })
-        } else {
-          throw new Error()
-        }
-      })
-      .catch(err => {
-        this.starError()
-      })
+    Star.star(e, { 
+      OPENID: this.OPENID,
+      success: () => {
+        Common.Toast({ content: '点赞成功~' })
+        this.getList()
+      },
+      fail: () => {
+        Common.Toast({ content: '点赞失败啦~请稍后再试哟~' })
+      }
+    })
   },
-  /**
-   * 点赞失败
-   */
-  starError () {
-    Common.Toast({ content: '点赞失败啦~请稍后再试哟~' })
+  clickCancleStar (e) {
+    Star.cancleStar(e, {
+      OPENID: this.OPENID,
+      success: () => {
+        Common.Toast({
+          content: '取消成功~'
+        })
+        this.getList()
+      },
+      fail: () => {
+        Common.Toast({
+          content: '失败啦~请稍后再试哟~'
+        })
+      }
+    })
   },
   /**
    * 点击进入管理员上传界面
