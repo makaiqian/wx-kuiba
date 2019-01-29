@@ -24,7 +24,9 @@ Page({
     // 当前用户信息
     userInfo: {},
     // 用户标识
-    OPENID: ''
+    OPENID: '',
+    // 所有内容渲染
+    isRender: false
   },
   /**
    * 页面加载完
@@ -94,6 +96,9 @@ Page({
     Cloud.getHomeList({ db: this.db })
       .then(res => {
         if (res.data) {
+          this.setData({
+            isRender: true
+          })
           res.data.forEach((item) => {
             // 点赞
             let isStar = false

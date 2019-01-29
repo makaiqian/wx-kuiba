@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class="bg"></view>
-<view class="container">
+<view class="container" wx:if="{{isRender}}">
   <view class="header">
     <view class="user-avatar">
       <open-data type="userAvatarUrl"></open-data>
