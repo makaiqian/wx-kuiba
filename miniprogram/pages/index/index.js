@@ -189,5 +189,16 @@ Page({
     wx.navigateTo({
       url: '../error/error'
     })
+  },
+  /**
+   * 查看大图功能
+   */
+  readImage (e) {
+    const img = e.target.dataset.img
+    console.log(img)
+    wx.previewImage({
+      current: img,
+      urls: [img]
+    })
   }
 })

@@ -12,7 +12,7 @@
   </view>
   <scroll-view class="container" scroll-y>
     <view wx:for="{{list}}" wx:key="img-{{index}}" class="list-item"> 
-      <image class="list-img" lazy-load src="{{item.img}}" mode="widthFix"></image>
+      <image class="list-img" lazy-load src="{{item.img}}" data-img="{{item.img}}" mode="widthFix" bindtap="readImage"></image>
       <view class="list-desc">{{item.desc}}</view>
       <view class="list-star-container">
         <view class="list-date">{{item.dateText}}</view>
