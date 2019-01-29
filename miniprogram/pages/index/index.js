@@ -122,6 +122,9 @@ Page({
       OPENID: this.OPENID,
       success: () => {
         Common.Toast({ content: '点赞成功~' })
+        const item = e.target.dataset.item
+        item.starList.push({})
+        item.isStar = !item.isStar
         this.getList()
       },
       fail: () => {
@@ -129,6 +132,9 @@ Page({
       }
     })
   },
+  /**
+   * 点击已点赞按钮
+   */
   clickCancleStar (e) {
     Star.cancleStar(e, {
       OPENID: this.OPENID,
@@ -136,6 +142,9 @@ Page({
         Common.Toast({
           content: '取消成功~'
         })
+        const item = e.target.dataset.item
+        item.starList.splice(0, 1)
+        item.isStar = !item.isStar
         this.getList()
       },
       fail: () => {
