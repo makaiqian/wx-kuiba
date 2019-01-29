@@ -27,6 +27,6 @@ export default {
      * 获取主页列表
      */
     getHomeList ({ db }) {
-        return db.collection('list_page').get()
+        return db.collection('list_page').orderBy('date', 'desc').get()
     }
 }
