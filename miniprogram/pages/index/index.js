@@ -132,7 +132,9 @@ Page({
           this.db.collection('list_page').doc(id).update({
             data: data
           })
+          console.log(data)
             .then(res => {
+              console.log(res)
               if (res.stats && res.stats.updated === 1) {
                 Common.Toast({ content: '点赞成功~' })
                 this.getList()

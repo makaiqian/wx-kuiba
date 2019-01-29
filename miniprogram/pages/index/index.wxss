@@ -36,7 +36,7 @@
   color: #fff;
 }
 .list-img {
-  width: 92vw;
+  width: 86vw;
   margin-top: 2vw;
   margin-bottom: 2vw;
   border-top-left-radius: 5vw;
@@ -44,7 +44,6 @@
   background-color: rgba(255, 255, 255, 0.8);
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
   border: 10px solid #fff;
-  box-sizing: border-box;
 }
 .list-desc {
   word-break: keep-all;
