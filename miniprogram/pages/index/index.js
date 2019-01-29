@@ -95,7 +95,7 @@ Page({
           res.data.forEach((item) => {
             let isStar = false
             item.starList.forEach((starItem) => {
-              if (starItem.OPENID === this.OPENID) {
+              if (starItem.openId === this.OPENID) {
                 isStar = true
               }
             })
@@ -121,18 +121,20 @@ Page({
     this.db.collection('list_page').doc(id).get()
       .then(res => {
         if (res.data) {
-          let data = res.data
+          let data = {
+            starList: this.db.command.push({
+              ...userInfo,
+              date: new Date().getTime(),
+              openId: this.OPENID
+            })
+          }
+
           this.db.collection('list_page').doc(id).update({
-            data: {
-              starList: this.db.command.push({
-                ...userInfo,
-                date: new Date().getTime(),
-                OPENID: this.OPENID
-              })
-            }
+            data: data
           })
             .then(res => {
               if (res.stats && res.stats.updated === 1) {
+                Common.Toast({ content: '点赞成功~' })
                 this.getList()
               } else {
                 throw new Error()
