@@ -8,6 +8,7 @@ const db = cloud.database()
 // 云函数入口函数
 exports.main = async (event, context) => {
   const { id, openId } = event
+  console.log('取消点赞', id, openId)
   let p = new Promise((resolve, reject) => {
     db.collection('list_page').doc(id).get()
       .then(res => {
@@ -30,6 +31,7 @@ exports.main = async (event, context) => {
           resolve()
         })
         .catch(err => {
+          console.log('取消点赞失败', err)
           reject()
         })
       })
