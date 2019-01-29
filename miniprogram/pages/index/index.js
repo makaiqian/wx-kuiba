@@ -95,6 +95,7 @@ Page({
       .then(res => {
         if (res.data) {
           res.data.forEach((item) => {
+            // 点赞
             let isStar = false
             item.starList.forEach((starItem) => {
               if (starItem.openId === this.OPENID) {
@@ -102,6 +103,12 @@ Page({
               }
             })
             item.isStar = isStar
+            // 日期
+            const date = new Date(item.date)
+            const year = date.getFullYear()
+            const month = date.getMonth() + 1
+            const day = date.getDate()
+            item.dateText = `${year}.${month}.${day}`
           })
           this.setData({
             list: res.data
