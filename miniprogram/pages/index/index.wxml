@@ -17,7 +17,7 @@
       <view class="list-star-container">
         <view class="list-date">{{item.dateText}}</view>
         <view class="list-star-content">已有{{item.starList.length}}个赞</view>
-        <button class="list-star button-default stared" wx:if="{{item.isStar}}" data-id="{{item._id}}" data-index="{{index}}" data-item="{{item}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="clickCancleStar">已点赞</button>
+        <button class="list-star button-default stared" wx:if="{{item.isStar}}" data-id="{{item._id}}" data-index="{{index}}" data-item="{{item}}" open-type="getUserInfo" lang="zh_CN">已点赞</button>
         <button class="list-star button-default" wx:else data-id="{{item._id}}" data-index="{{index}}" data-item="{{item}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="clickStar">点个赞</button>
       </view>
     </view>

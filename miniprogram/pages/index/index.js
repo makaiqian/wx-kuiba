@@ -93,13 +93,13 @@ Page({
    * 获取cloud数据列表
    */
   getList() {
-    Cloud.getHomeList({ db: this.db })
+    wx.cloud.callFunction({ name: 'getList' })
       .then(res => {
-        if (res.data) {
+        if (res.result && res.result.data) {
           this.setData({
             isRender: true
           })
-          res.data.forEach((item) => {
+          res.result.data.forEach((item) => {
             // 点赞
             let isStar = false
             item.starList.forEach((starItem) => {
@@ -113,10 +113,12 @@ Page({
             const year = date.getFullYear()
             const month = date.getMonth() + 1
             const day = date.getDate()
-            item.dateText = `${year}.${month}.${day}`
+            const hour = date.getHours()
+            const minute = date.getMinutes()
+            item.dateText = `${year}.${month}.${day} ${hour}:${minute}`
           })
           this.setData({
-            list: res.data
+            list: res.result.data
           })
         } else {
           throw new Error()

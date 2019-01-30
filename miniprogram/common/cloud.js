@@ -22,11 +22,5 @@ export default {
      */
     getAdminList ({ db }) {
         return db.collection('list_admin').get()
-    },
-    /**
-     * 获取主页列表
-     */
-    getHomeList ({ db }) {
-        return db.collection('list_page').orderBy('date', 'desc').get()
     }
 }
