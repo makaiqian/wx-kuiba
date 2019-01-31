@@ -67,6 +67,7 @@ Page({
     Cloud.getUserInfo()
       .then((resInfo) => {
         const OPENID = this.OPENID = resInfo.result.OPENID
+        console.log(OPENID)
         cb && cb()
         Cloud.getAdminList({ db: this.db })
           .then((res) => {
